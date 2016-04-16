@@ -8,7 +8,7 @@
     "license": "BSD-2-Clause",
     "homepage": "https://github.com/Maks3w/PhpUnitMethodsTrait",
     "require": {
-        "php": ">= 5.4"
+        "php": ">= 5.6"
     },
     "require-dev": {
         "fabpot/php-cs-fixer": "^1.7.0",
