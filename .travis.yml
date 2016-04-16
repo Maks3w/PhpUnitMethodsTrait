@@ -7,7 +7,7 @@ cache:
     - $HOME/.composer/cache
 
 php:
-  - 5.4
+  - 7.0
 
 before_install:
   - phpenv config-rm xdebug.ini
