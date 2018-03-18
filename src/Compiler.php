@@ -94,7 +94,9 @@ class Compiler
             }
 
             $method = $this->methodGeneratorFromReflection($reflectionMethod);
-            $this->importTypesPresentInDocBlock($method->getDocBlock(), $traitGenerator);
+            if ($method->getDocBlock()) {
+                $this->importTypesPresentInDocBlock($method->getDocBlock(), $traitGenerator);
+            }
 
             $traitGenerator->addMethodFromGenerator($method);
         }
