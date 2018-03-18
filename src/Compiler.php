@@ -73,11 +73,18 @@ class Compiler
 
         // Build trait name
         $traitName = $classReflection->getName();
+        $delimiter = null;
         if (strpos($traitName, '_') !== false) {
-            $traitNameParts = explode('_', $traitName);
+            $delimiter = '_';
+        }elseif (strpos($traitName, '\\') !== false) {
+            $delimiter = '\\';
+        }
 
+        if ($delimiter) {
+            $traitNameParts = explode($delimiter, $traitName);
             $traitName = array_pop($traitNameParts);
         }
+
         $traitName .= 'Trait';
 
         // Create trait from original class
@@ -187,6 +194,8 @@ class Compiler
      */
     protected function isPhpDocType($type)
     {
+        $type = trim($type, '[]');
+
         switch (strtolower($type)) {
             case '$this':
             case 'array':
