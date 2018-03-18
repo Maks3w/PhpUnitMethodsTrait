@@ -32,13 +32,13 @@ class Compiler
     private $blackListMethodNames;
 
     /**
-     * @var string Trait namespace.
+     * @var string Trait namespace
      */
     private $traitNamespace;
 
     /**
      * @param string $inputClass
-     * @param string $traitNamespace Trait namespace.
+     * @param string $traitNamespace Trait namespace
      * @param string[] $blackListMethodNames List of methods to exclude from the result
      */
     public function __construct($inputClass, $traitNamespace, array $blackListMethodNames = [])
@@ -76,7 +76,7 @@ class Compiler
         $delimiter = null;
         if (strpos($traitName, '_') !== false) {
             $delimiter = '_';
-        }elseif (strpos($traitName, '\\') !== false) {
+        } elseif (strpos($traitName, '\\') !== false) {
             $delimiter = '\\';
         }
 
