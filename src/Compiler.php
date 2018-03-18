@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maks3w\PhpUnitMethodsTrait;
 
 use Zend\Code\Generator\DocBlock\Tag\AbstractTypeableTag;
@@ -123,7 +125,7 @@ class Compiler
         $method->setSourceContent($reflectionMethod->getContents(false));
         $method->setSourceDirty(false);
 
-        if ($reflectionMethod->getDocComment() != '') {
+        if (!empty($reflectionMethod->getDocComment())) {
             $method->setDocBlock(DocBlockGenerator::fromReflection($reflectionMethod->getDocBlock()));
         }
 

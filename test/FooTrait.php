@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maks3w\PhpUnitMethodsTraitTest;
 
 /**
@@ -21,6 +23,6 @@ trait FooTrait
         \PHPUnit_Framework_Assert::assertTrue($mockArrayAccess->offsetExists('foo'));
 
         $this->setExpectedException('Exception');
-        throw new \Exception;
+        throw new \Exception();
     }
 }
