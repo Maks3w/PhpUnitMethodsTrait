@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Maks3w\PhpUnitMethodsTrait;
 
-use Zend\Code\Generator\DocBlock\Tag\AbstractTypeableTag;
 use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\FileGenerator;
 use Zend\Code\Generator\MethodGenerator;
@@ -12,7 +11,6 @@ use Zend\Code\Generator\ParameterGenerator;
 use Zend\Code\Generator\TraitGenerator;
 use Zend\Code\Reflection\ClassReflection;
 use Zend\Code\Reflection\MethodReflection;
-use Zend\Code\Reflection\ParameterReflection;
 
 /**
  * class with useful methods for placeholders checks.
