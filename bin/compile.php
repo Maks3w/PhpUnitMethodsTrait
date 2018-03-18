@@ -5,17 +5,16 @@ use Maks3w\PhpUnitMethodsTrait\Compiler;
 include_once __DIR__ . '/../vendor/autoload.php';
 
 $distFolder = __DIR__ . '/../dist';
-$files = [
-    'PHPUnit_Framework_TestCase' => [
+$classes = [
+    PHPUnit\Framework\TestCase::class => [
         'destination' => $distFolder . '/Framework/TestCaseTrait.php',
         'methodsBlackList' => [
-            'onNotSuccessfulTest',
         ],
         'namespace' => 'Maks3w\\PhpUnitMethodsTrait\\Framework',
     ],
 ];
 
-foreach ($files as $inputClass => $options) {
+foreach ($classes as $inputClass => $options) {
     echo 'Processing ', $inputClass, '...', PHP_EOL;
 
     $compiler = new Compiler($inputClass, $options['namespace'], $options['methodsBlackList']);

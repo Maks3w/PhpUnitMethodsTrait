@@ -2,12 +2,11 @@
 
 namespace Maks3w\PhpUnitMethodsTrait\Framework;
 
-use PHPUnit_Framework_Exception;
-use PHPUnit_Framework_TestResult;
 use Exception;
-use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_MockObject_MockBuilder;
-use PHPUnit_Framework_MockObject_Generator;
+use TestResult;
+use MockObject;
+use MockBuilder;
+use Throwable;
 
 trait TestCaseTrait
 {
@@ -80,7 +79,7 @@ trait TestCaseTrait
     /**
      * @param string $expectedRegex
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     abstract public function expectOutputRegex($expectedRegex);
     /**
@@ -89,41 +88,24 @@ trait TestCaseTrait
     abstract public function expectOutputString($expectedString);
     /**
      * @return bool
-     *
-     * @deprecated Use hasExpectationOnOutput() instead
-     */
-    abstract public function hasPerformedExpectationsOnOutput();
-    /**
-     * @return bool
      */
     abstract public function hasExpectationOnOutput();
     /**
-     * @return string
+     * @return null|string
      */
     abstract public function getExpectedException();
     /**
-     * @param mixed      $exception
-     * @param string     $message   Null means we do not check message at all, string
-     * (even empty) means we do. Default: null.
-     * @param int|string $code      Null means we do not check code at all, non-null
-     * means we do.
-     *
-     * @throws PHPUnit_Framework_Exception
-     *
-     * @deprecated Method deprecated since Release 5.2.0; use expectException() instead
+     * @return null|int|string
      */
-    abstract public function setExpectedException($exception, $message = '', $code = null);
+    abstract public function getExpectedExceptionCode();
     /**
-     * @param mixed  $exception
-     * @param string $messageRegExp
-     * @param int    $code
-     *
-     * @throws PHPUnit_Framework_Exception
-     *
-     * @deprecated Method deprecated since Release 5.6.0; use
-     * expectExceptionMessageRegExp() instead
+     * @return string
      */
-    abstract public function setExpectedExceptionRegExp($exception, $messageRegExp = '', $code = null);
+    abstract public function getExpectedExceptionMessage();
+    /**
+     * @return string
+     */
+    abstract public function getExpectedExceptionMessageRegExp();
     /**
      * @param string $exception
      */
@@ -131,21 +113,27 @@ trait TestCaseTrait
     /**
      * @param int|string $code
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     abstract public function expectExceptionCode($code);
     /**
      * @param string $message
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     abstract public function expectExceptionMessage($message);
     /**
      * @param string $messageRegExp
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     abstract public function expectExceptionMessageRegExp($messageRegExp);
+    /**
+     * Sets up an expectation for an exception to be raised by the code under test.
+     * Information for expected exception class, expected exception message, and
+     * expected exception code are retrieved from a given Exception object.
+     */
+    abstract public function expectExceptionObject(\Exception $exception);
     /**
      * @param bool $flag
      */
@@ -180,13 +168,13 @@ trait TestCaseTrait
      * Runs the test case and collects the results in a TestResult object.
      * If no TestResult object is passed a new one will be created.
      *
-     * @param PHPUnit_Framework_TestResult $result
+     * @param TestResult $result
      *
-     * @return PHPUnit_Framework_TestResult
+     * @return TestResult|null
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
-    abstract public function run(\PHPUnit_Framework_TestResult $result = null);
+    abstract public function run(TestResult $result = null);
     /**
      * Runs the bare test sequence.
      */
@@ -196,8 +184,8 @@ trait TestCaseTrait
      *
      * @return mixed
      *
-     * @throws Exception|PHPUnit_Framework_Exception
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception|Exception
+     * @throws Exception
      */
     abstract protected function runTest();
     /**
@@ -213,7 +201,7 @@ trait TestCaseTrait
     /**
      * Sets the dependencies of a TestCase.
      *
-     * @param array $dependencies
+     * @param string[] $dependencies
      */
     abstract public function setDependencies(array $dependencies);
     /**
@@ -247,19 +235,25 @@ trait TestCaseTrait
     /**
      * @param bool $runTestInSeparateProcess
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     abstract public function setRunTestInSeparateProcess($runTestInSeparateProcess);
     /**
+     * @param bool $runClassInSeparateProcess
+     *
+     * @throws Exception
+     */
+    abstract public function setRunClassInSeparateProcess($runClassInSeparateProcess);
+    /**
      * @param bool $preserveGlobalState
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     abstract public function setPreserveGlobalState($preserveGlobalState);
     /**
      * @param bool $inIsolation
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     abstract public function setInIsolation($inIsolation);
     /**
@@ -277,21 +271,21 @@ trait TestCaseTrait
     /**
      * @param callable $callback
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     abstract public function setOutputCallback($callback);
     /**
-     * @return PHPUnit_Framework_TestResult
+     * @return TestResult
      */
     abstract public function getTestResultObject();
     /**
-     * @param PHPUnit_Framework_TestResult $result
+     * @param TestResult $result
      */
-    abstract public function setTestResultObject(\PHPUnit_Framework_TestResult $result);
+    abstract public function setTestResultObject(TestResult $result);
     /**
-     * @param PHPUnit_Framework_MockObject_MockObject $mockObject
+     * @param MockObject $mockObject
      */
-    abstract public function registerMockObject(\PHPUnit_Framework_MockObject_MockObject $mockObject);
+    abstract public function registerMockObject(MockObject\MockObject $mockObject);
     /**
      * This method is a wrapper for the ini_set() function that automatically
      * resets the modified php.ini setting to its original value after the
@@ -300,7 +294,7 @@ trait TestCaseTrait
      * @param string $varName
      * @param string $newValue
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     abstract protected function iniSet($varName, $newValue);
     /**
@@ -310,7 +304,7 @@ trait TestCaseTrait
      * @param int    $category
      * @param string $locale
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     abstract protected function setLocale();
     /**
@@ -318,7 +312,7 @@ trait TestCaseTrait
      *
      * @param string|string[] $className
      *
-     * @return PHPUnit_Framework_MockObject_MockBuilder
+     * @return MockBuilder
      */
     abstract public function getMockBuilder($className);
     /**
@@ -326,9 +320,9 @@ trait TestCaseTrait
      *
      * @param string $originalClassName
      *
-     * @return PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     abstract protected function createMock($originalClassName);
     /**
@@ -337,67 +331,33 @@ trait TestCaseTrait
      * @param string $originalClassName
      * @param array  $configuration
      *
-     * @return PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     abstract protected function createConfiguredMock($originalClassName, array $configuration);
     /**
      * Returns a partial test double for the specified class.
      *
-     * @param string $originalClassName
-     * @param array  $methods
+     * @param string   $originalClassName
+     * @param string[] $methods
      *
-     * @return PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     abstract protected function createPartialMock($originalClassName, array $methods);
     /**
-     * Returns a mock object for the specified class.
-     *
-     * @param string     $originalClassName       Name of the class to mock.
-     * @param array|null $methods                 When provided, only methods whose
-     * names are in the array
-     *                                            are replaced with a configurable test
-     * double. The behavior
-     *                                            of the other methods is not changed.
-     *                                            Providing null means that no methods
-     * will be replaced.
-     * @param array      $arguments               Parameters to pass to the original
-     * class' constructor.
-     * @param string     $mockClassName           Class name for the generated test
-     * double class.
-     * @param bool       $callOriginalConstructor Can be used to disable the call to
-     * the original class' constructor.
-     * @param bool       $callOriginalClone       Can be used to disable the call to
-     * the original class' clone constructor.
-     * @param bool       $callAutoload            Can be used to disable __autoload()
-     * during the generation of the test double class.
-     * @param bool       $cloneArguments
-     * @param bool       $callOriginalMethods
-     * @param object     $proxyTarget
-     *
-     * @return PHPUnit_Framework_MockObject_MockObject
-     *
-     * @throws PHPUnit_Framework_Exception
-     *
-     * @deprecated Method deprecated since Release 5.4.0; use createMock() or
-     * getMockBuilder() instead
-     */
-    abstract protected function getMock($originalClassName, $methods = array(), array $arguments = array(), $mockClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true, $cloneArguments = false, $callOriginalMethods = false, $proxyTarget = null);
-    /**
-     * Returns a mock with disabled constructor object for the specified class.
+     * Returns a test proxy for the specified class.
      *
      * @param string $originalClassName
+     * @param array  $constructorArguments
      *
-     * @return PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject
      *
-     * @throws PHPUnit_Framework_Exception
-     *
-     * @deprecated Method deprecated since Release 5.4.0; use createMock() instead
+     * @throws Exception
      */
-    abstract protected function getMockWithoutInvokingTheOriginalConstructor($originalClassName);
+    abstract protected function createTestProxy($originalClassName, array $constructorArguments = array());
     /**
      * Mocks the specified class and returns the name of the mocked class.
      *
@@ -412,7 +372,7 @@ trait TestCaseTrait
      *
      * @return string
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     abstract protected function getMockClass($originalClassName, $methods = array(), array $arguments = array(), $mockClassName = '', $callOriginalConstructor = false, $callOriginalClone = true, $callAutoload = true, $cloneArguments = false);
     /**
@@ -429,9 +389,9 @@ trait TestCaseTrait
      * @param array  $mockedMethods
      * @param bool   $cloneArguments
      *
-     * @return PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     abstract protected function getMockForAbstractClass($originalClassName, array $arguments = array(), $mockClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true, $mockedMethods = array(), $cloneArguments = false);
     /**
@@ -445,7 +405,7 @@ trait TestCaseTrait
      * @param array  $options                 An array of options passed to
      * SOAPClient::_construct
      *
-     * @return PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject
      */
     abstract protected function getMockFromWsdl($wsdlFile, $originalClassName = '', $mockClassName = '', array $methods = array(), $callOriginalConstructor = true, array $options = array());
     /**
@@ -462,9 +422,9 @@ trait TestCaseTrait
      * @param array  $mockedMethods
      * @param bool   $cloneArguments
      *
-     * @return PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
     abstract protected function getMockForTrait($traitName, array $arguments = array(), $mockClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true, $mockedMethods = array(), $cloneArguments = false);
     /**
@@ -476,13 +436,12 @@ trait TestCaseTrait
      * @param bool   $callOriginalConstructor
      * @param bool   $callOriginalClone
      * @param bool   $callAutoload
-     * @param bool   $cloneArguments
      *
      * @return object
      *
-     * @throws PHPUnit_Framework_Exception
+     * @throws Exception
      */
-    abstract protected function getObjectForTrait($traitName, array $arguments = array(), $traitClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true, $cloneArguments = false);
+    abstract protected function getObjectForTrait($traitName, array $arguments = array(), $traitClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true);
     /**
      * @param string|null $classOrInterface
      *
@@ -512,13 +471,18 @@ trait TestCaseTrait
      */
     abstract public function dataDescription();
     /**
+     * @return int|string
+     */
+    abstract public function dataName();
+    abstract public function registerComparator(\SebastianBergmann\Comparator\Comparator $comparator);
+    /**
      * Gets the data set description of a TestCase.
      *
      * @param bool $includeData
      *
      * @return string
      */
-    abstract protected function getDataSetAsString($includeData = true);
+    abstract public function getDataSetAsString($includeData = true);
     /**
      * Gets the data set of a TestCase.
      *
@@ -528,16 +492,18 @@ trait TestCaseTrait
     /**
      * Creates a default TestResult object.
      *
-     * @return PHPUnit_Framework_TestResult
+     * @return TestResult
      */
     abstract protected function createResult();
     abstract protected function handleDependencies();
     /**
-     * Get the mock object generator, creating it if it doesn't exist.
+     * This method is called when a test method did not execute successfully.
      *
-     * @return PHPUnit_Framework_MockObject_Generator
+     * @param Throwable $t
+     *
+     * @throws Throwable
      */
-    abstract protected function getMockObjectGenerator();
+    abstract protected function onNotSuccessfulTest(\Throwable $t);
 
 }
 
