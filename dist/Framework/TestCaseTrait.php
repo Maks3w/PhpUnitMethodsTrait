@@ -2,12 +2,6 @@
 
 namespace Maks3w\PhpUnitMethodsTrait\Framework;
 
-use Exception;
-use TestResult;
-use MockObject;
-use MockBuilder;
-use Throwable;
-
 trait TestCaseTrait
 {
 
@@ -174,7 +168,7 @@ trait TestCaseTrait
      *
      * @throws Exception
      */
-    abstract public function run(TestResult $result = null);
+    abstract public function run(\PHPUnit\Framework\TestResult $result = null);
     /**
      * Runs the bare test sequence.
      */
@@ -281,11 +275,11 @@ trait TestCaseTrait
     /**
      * @param TestResult $result
      */
-    abstract public function setTestResultObject(TestResult $result);
+    abstract public function setTestResultObject(\PHPUnit\Framework\TestResult $result);
     /**
      * @param MockObject $mockObject
      */
-    abstract public function registerMockObject(MockObject\MockObject $mockObject);
+    abstract public function registerMockObject(\PHPUnit\Framework\MockObject\MockObject $mockObject);
     /**
      * This method is a wrapper for the ini_set() function that automatically
      * resets the modified php.ini setting to its original value after the

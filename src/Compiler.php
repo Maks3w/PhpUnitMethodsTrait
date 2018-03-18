@@ -12,6 +12,7 @@ use Zend\Code\Generator\ParameterGenerator;
 use Zend\Code\Generator\TraitGenerator;
 use Zend\Code\Reflection\ClassReflection;
 use Zend\Code\Reflection\MethodReflection;
+use Zend\Code\Reflection\ParameterReflection;
 
 /**
  * class with useful methods for placeholders checks.
@@ -103,9 +104,6 @@ class Compiler
             }
 
             $method = $this->methodGeneratorFromReflection($reflectionMethod);
-            if ($method->getDocBlock()) {
-                $this->importTypesPresentInDocBlock($method->getDocBlock(), $traitGenerator);
-            }
 
             $traitGenerator->addMethodFromGenerator($method);
         }
@@ -152,32 +150,6 @@ class Compiler
     }
 
     /**
-     * @param DocBlockGenerator $docBlock
-     * @param TraitGenerator $traitGenerator
-     */
-    protected function importTypesPresentInDocBlock(DocBlockGenerator $docBlock, TraitGenerator $traitGenerator)
-    {
-        foreach ($docBlock->getTags() as $tag) {
-            if (!($tag instanceof AbstractTypeableTag)) {
-                continue;
-            }
-
-            foreach ($tag->getTypes() as $type) {
-                // Type is in global namespace
-                if ($type[0] === '\\') {
-                    continue;
-                }
-
-                if ($this->isPhpDocType($type)) {
-                    continue;
-                }
-
-                $traitGenerator->addUse($type);
-            }
-        }
-    }
-
-    /**
      * Indicate if method name is present in the black list.
      *
      * @param string $methodName
@@ -187,39 +159,5 @@ class Compiler
     protected function methodIsBlackListed($methodName)
     {
         return in_array($methodName, $this->blackListMethodNames, true);
-    }
-
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
-    protected function isPhpDocType($type)
-    {
-        $type = trim($type, '[]');
-
-        switch (strtolower($type)) {
-            case '$this':
-            case 'array':
-            case 'bool':
-            case 'boolean':
-            case 'callable':
-            case 'false':
-            case 'float':
-            case 'int':
-            case 'integer':
-            case 'mixed':
-            case 'null':
-            case 'object':
-            case 'resource':
-            case 'self':
-            case 'static':
-            case 'string':
-            case 'true':
-            case 'void':
-                return true;
-            default:
-                return false;
-        }
     }
 }

@@ -13,16 +13,16 @@ trait FooTrait
 
     public function testFoo()
     {
-        /** @var \ArrayAccess|\PHPUnit_Framework_MockObject_MockObject $mockArrayAccess */
-        $mockArrayAccess = $this->getMock('ArrayAccess');
+        /** @var \ArrayAccess|\PHPUnit\Framework\MockObject\MockObject $mockArrayAccess */
+        $mockArrayAccess = $this->createMock(\ArrayAccess::class);
 
-        $mockArrayAccess->expects(\PHPUnit_Framework_TestCase::any())
+        $mockArrayAccess->expects(\PHPUnit\Framework\TestCase::any())
             ->method('offsetExists')
             ->willReturn(true);
 
-        \PHPUnit_Framework_Assert::assertTrue($mockArrayAccess->offsetExists('foo'));
+        \PHPUnit\Framework\Assert::assertTrue($mockArrayAccess->offsetExists('foo'));
 
-        $this->setExpectedException('Exception');
+        $this->expectException('Exception');
         throw new \Exception();
     }
 }
