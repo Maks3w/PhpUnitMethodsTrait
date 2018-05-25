@@ -8,251 +8,100 @@ trait TestCaseTrait
     /**
      * Returns a string representation of the test case.
      *
-     * @return string
+     * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     abstract public function toString();
-    /**
-     * Counts the number of test cases executed by run(TestResult result).
-     *
-     * @return int
-     */
     abstract public function count();
     abstract public function getGroups();
-    /**
-     * @param array $groups
-     */
     abstract public function setGroups(array $groups);
-    /**
-     * Returns the annotations for this test.
-     *
-     * @return array
-     */
     abstract public function getAnnotations();
     /**
-     * Gets the name of a TestCase.
-     *
-     * @param bool $withDataSet
-     *
-     * @return string
+     * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    abstract public function getName($withDataSet = true);
+    abstract public function getName(bool $withDataSet = true);
     /**
      * Returns the size of the test.
      *
-     * @return int
+     * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     abstract public function getSize();
     /**
-     * @return bool
+     * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     abstract public function hasSize();
     /**
-     * @return bool
+     * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     abstract public function isSmall();
     /**
-     * @return bool
+     * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     abstract public function isMedium();
     /**
-     * @return bool
+     * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     abstract public function isLarge();
-    /**
-     * @return string
-     */
     abstract public function getActualOutput();
-    /**
-     * @return bool
-     */
     abstract public function hasOutput();
-    /**
-     * @return bool
-     */
     abstract public function doesNotPerformAssertions();
-    /**
-     * @param string $expectedRegex
-     *
-     * @throws Exception
-     */
-    abstract public function expectOutputRegex($expectedRegex);
-    /**
-     * @param string $expectedString
-     */
-    abstract public function expectOutputString($expectedString);
-    /**
-     * @return bool
-     */
+    abstract public function expectOutputRegex(string $expectedRegex);
+    abstract public function expectOutputString(string $expectedString);
     abstract public function hasExpectationOnOutput();
-    /**
-     * @return null|string
-     */
     abstract public function getExpectedException();
     /**
      * @return null|int|string
      */
     abstract public function getExpectedExceptionCode();
-    /**
-     * @return string
-     */
     abstract public function getExpectedExceptionMessage();
-    /**
-     * @return string
-     */
     abstract public function getExpectedExceptionMessageRegExp();
-    /**
-     * @param string $exception
-     */
-    abstract public function expectException($exception);
+    abstract public function expectException(string $exception);
     /**
      * @param int|string $code
-     *
-     * @throws Exception
      */
     abstract public function expectExceptionCode($code);
-    /**
-     * @param string $message
-     *
-     * @throws Exception
-     */
-    abstract public function expectExceptionMessage($message);
-    /**
-     * @param string $messageRegExp
-     *
-     * @throws Exception
-     */
-    abstract public function expectExceptionMessageRegExp($messageRegExp);
+    abstract public function expectExceptionMessage(string $message);
+    abstract public function expectExceptionMessageRegExp(string $messageRegExp);
     /**
      * Sets up an expectation for an exception to be raised by the code under test.
      * Information for expected exception class, expected exception message, and
      * expected exception code are retrieved from a given Exception object.
      */
     abstract public function expectExceptionObject(\Exception $exception);
-    /**
-     * @param bool $flag
-     */
-    abstract public function setRegisterMockObjectsFromTestArgumentsRecursively($flag);
-    abstract protected function setExpectedExceptionFromAnnotation();
-    /**
-     * @param bool $useErrorHandler
-     */
-    abstract public function setUseErrorHandler($useErrorHandler);
-    abstract protected function setUseErrorHandlerFromAnnotation();
-    abstract protected function checkRequirements();
-    /**
-     * Returns the status of this test.
-     *
-     * @return int
-     */
+    abstract public function setRegisterMockObjectsFromTestArgumentsRecursively(bool $flag);
+    abstract public function setUseErrorHandler(bool $useErrorHandler);
     abstract public function getStatus();
     abstract public function markAsRisky();
-    /**
-     * Returns the status message of this test.
-     *
-     * @return string
-     */
     abstract public function getStatusMessage();
-    /**
-     * Returns whether or not this test has failed.
-     *
-     * @return bool
-     */
     abstract public function hasFailed();
     /**
      * Runs the test case and collects the results in a TestResult object.
      * If no TestResult object is passed a new one will be created.
      *
-     * @param TestResult $result
-     *
-     * @return TestResult|null
-     *
-     * @throws Exception
+     * @throws CodeCoverageException
+     * @throws ReflectionException
+     * @throws SebastianBergmann\CodeCoverage\CoveredCodeNotExecutedException
+     * @throws SebastianBergmann\CodeCoverage\InvalidArgumentException
+     * @throws SebastianBergmann\CodeCoverage\MissingCoversAnnotationException
+     * @throws SebastianBergmann\CodeCoverage\RuntimeException
+     * @throws SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException
+     * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     abstract public function run(\PHPUnit\Framework\TestResult $result = null);
-    /**
-     * Runs the bare test sequence.
-     */
     abstract public function runBare();
+    abstract public function setName(string $name);
     /**
-     * Override to run the test and assert its state.
-     *
-     * @return mixed
-     *
-     * @throws Exception|Exception
-     * @throws Exception
-     */
-    abstract protected function runTest();
-    /**
-     * Verifies the mock object expectations.
-     */
-    abstract protected function verifyMockObjects();
-    /**
-     * Sets the name of a TestCase.
-     *
-     * @param  string
-     */
-    abstract public function setName($name);
-    /**
-     * Sets the dependencies of a TestCase.
-     *
      * @param string[] $dependencies
      */
     abstract public function setDependencies(array $dependencies);
-    /**
-     * Returns true if the tests has dependencies
-     *
-     * @return bool
-     */
     abstract public function hasDependencies();
-    /**
-     * Sets
-     *
-     * @param array $dependencyInput
-     */
     abstract public function setDependencyInput(array $dependencyInput);
-    /**
-     * @param bool $beStrictAboutChangesToGlobalState
-     */
-    abstract public function setBeStrictAboutChangesToGlobalState($beStrictAboutChangesToGlobalState);
-    /**
-     * Calling this method in setUp() has no effect!
-     *
-     * @param bool $backupGlobals
-     */
-    abstract public function setBackupGlobals($backupGlobals);
-    /**
-     * Calling this method in setUp() has no effect!
-     *
-     * @param bool $backupStaticAttributes
-     */
-    abstract public function setBackupStaticAttributes($backupStaticAttributes);
-    /**
-     * @param bool $runTestInSeparateProcess
-     *
-     * @throws Exception
-     */
-    abstract public function setRunTestInSeparateProcess($runTestInSeparateProcess);
-    /**
-     * @param bool $runClassInSeparateProcess
-     *
-     * @throws Exception
-     */
-    abstract public function setRunClassInSeparateProcess($runClassInSeparateProcess);
-    /**
-     * @param bool $preserveGlobalState
-     *
-     * @throws Exception
-     */
-    abstract public function setPreserveGlobalState($preserveGlobalState);
-    /**
-     * @param bool $inIsolation
-     *
-     * @throws Exception
-     */
-    abstract public function setInIsolation($inIsolation);
-    /**
-     * @return bool
-     */
+    abstract public function setBeStrictAboutChangesToGlobalState(bool $beStrictAboutChangesToGlobalState);
+    abstract public function setBackupGlobals(bool $backupGlobals);
+    abstract public function setBackupStaticAttributes(bool $backupStaticAttributes);
+    abstract public function setRunTestInSeparateProcess(bool $runTestInSeparateProcess);
+    abstract public function setRunClassInSeparateProcess(bool $runClassInSeparateProcess);
+    abstract public function setPreserveGlobalState(bool $preserveGlobalState);
+    abstract public function setInIsolation(bool $inIsolation);
     abstract public function isInIsolation();
     /**
      * @return mixed
@@ -262,96 +111,98 @@ trait TestCaseTrait
      * @param mixed $result
      */
     abstract public function setResult($result);
-    /**
-     * @param callable $callback
-     *
-     * @throws Exception
-     */
-    abstract public function setOutputCallback($callback);
-    /**
-     * @return TestResult
-     */
+    abstract public function setOutputCallback(callable $callback);
     abstract public function getTestResultObject();
-    /**
-     * @param TestResult $result
-     */
     abstract public function setTestResultObject(\PHPUnit\Framework\TestResult $result);
-    /**
-     * @param MockObject $mockObject
-     */
     abstract public function registerMockObject(\PHPUnit\Framework\MockObject\MockObject $mockObject);
+    /**
+     * Returns a builder object to create mock objects using a fluent interface.
+     *
+     * @param string|string[] $className
+     */
+    abstract public function getMockBuilder($className);
+    abstract public function addToAssertionCount(int $count);
+    /**
+     * Returns the number of assertions performed by this test.
+     */
+    abstract public function getNumAssertions();
+    abstract public function usesDataProvider();
+    abstract public function dataDescription();
+    /**
+     * @return int|string
+     */
+    abstract public function dataName();
+    abstract public function registerComparator(\SebastianBergmann\Comparator\Comparator $comparator);
+    abstract public function getDataSetAsString(bool $includeData = true);
+    /**
+     * Override to run the test and assert its state.
+     *
+     * @throws AssertionFailedError
+     * @throws Exception
+     * @throws ExpectationFailedException
+     * @throws SebastianBergmann\ObjectEnumerator\InvalidArgumentException
+     * @throws Throwable
+     *
+     * @return mixed
+     */
+    abstract protected function runTest();
     /**
      * This method is a wrapper for the ini_set() function that automatically
      * resets the modified php.ini setting to its original value after the
      * test is run.
      *
-     * @param string $varName
-     * @param string $newValue
+     * @param mixed $newValue
      *
      * @throws Exception
      */
-    abstract protected function iniSet($varName, $newValue);
+    abstract protected function iniSet(string $varName, $newValue);
     /**
      * This method is a wrapper for the setlocale() function that automatically
      * resets the locale to its original value after the test is run.
      *
-     * @param int    $category
-     * @param string $locale
-     *
      * @throws Exception
      */
-    abstract protected function setLocale();
-    /**
-     * Returns a builder object to create mock objects using a fluent interface.
-     *
-     * @param string|string[] $className
-     *
-     * @return MockBuilder
-     */
-    abstract public function getMockBuilder($className);
+    abstract protected function setLocale(... $args);
     /**
      * Returns a test double for the specified class.
      *
-     * @param string $originalClassName
-     *
-     * @return MockObject
+     * @param string|string[] $originalClassName
      *
      * @throws Exception
+     * @throws ReflectionException
+     * @throws \InvalidArgumentException
      */
     abstract protected function createMock($originalClassName);
     /**
      * Returns a configured test double for the specified class.
      *
-     * @param string $originalClassName
-     * @param array  $configuration
-     *
-     * @return MockObject
+     * @param string|string[] $originalClassName
+     * @param array           $configuration
      *
      * @throws Exception
+     * @throws ReflectionException
+     * @throws \InvalidArgumentException
      */
     abstract protected function createConfiguredMock($originalClassName, array $configuration);
     /**
      * Returns a partial test double for the specified class.
      *
-     * @param string   $originalClassName
-     * @param string[] $methods
-     *
-     * @return MockObject
+     * @param string|string[] $originalClassName
+     * @param string[]        $methods
      *
      * @throws Exception
+     * @throws ReflectionException
+     * @throws \InvalidArgumentException
      */
     abstract protected function createPartialMock($originalClassName, array $methods);
     /**
      * Returns a test proxy for the specified class.
      *
-     * @param string $originalClassName
-     * @param array  $constructorArguments
-     *
-     * @return MockObject
-     *
      * @throws Exception
+     * @throws ReflectionException
+     * @throws \InvalidArgumentException
      */
-    abstract protected function createTestProxy($originalClassName, array $constructorArguments = array());
+    abstract protected function createTestProxy(string $originalClassName, array $constructorArguments = array());
     /**
      * Mocks the specified class and returns the name of the mocked class.
      *
@@ -364,9 +215,9 @@ trait TestCaseTrait
      * @param bool   $callAutoload
      * @param bool   $cloneArguments
      *
-     * @return string
-     *
      * @throws Exception
+     * @throws ReflectionException
+     * @throws \InvalidArgumentException
      */
     abstract protected function getMockClass($originalClassName, $methods = array(), array $arguments = array(), $mockClassName = '', $callOriginalConstructor = false, $callOriginalClone = true, $callAutoload = true, $cloneArguments = false);
     /**
@@ -383,9 +234,9 @@ trait TestCaseTrait
      * @param array  $mockedMethods
      * @param bool   $cloneArguments
      *
-     * @return MockObject
-     *
      * @throws Exception
+     * @throws ReflectionException
+     * @throws \InvalidArgumentException
      */
     abstract protected function getMockForAbstractClass($originalClassName, array $arguments = array(), $mockClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true, $mockedMethods = array(), $cloneArguments = false);
     /**
@@ -399,7 +250,9 @@ trait TestCaseTrait
      * @param array  $options                 An array of options passed to
      * SOAPClient::_construct
      *
-     * @return MockObject
+     * @throws Exception
+     * @throws ReflectionException
+     * @throws \InvalidArgumentException
      */
     abstract protected function getMockFromWsdl($wsdlFile, $originalClassName = '', $mockClassName = '', array $methods = array(), $callOriginalConstructor = true, array $options = array());
     /**
@@ -416,9 +269,9 @@ trait TestCaseTrait
      * @param array  $mockedMethods
      * @param bool   $cloneArguments
      *
-     * @return MockObject
-     *
      * @throws Exception
+     * @throws ReflectionException
+     * @throws \InvalidArgumentException
      */
     abstract protected function getMockForTrait($traitName, array $arguments = array(), $mockClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true, $mockedMethods = array(), $cloneArguments = false);
     /**
@@ -431,69 +284,31 @@ trait TestCaseTrait
      * @param bool   $callOriginalClone
      * @param bool   $callAutoload
      *
-     * @return object
-     *
      * @throws Exception
+     * @throws ReflectionException
+     * @throws \InvalidArgumentException
+     *
+     * @return object
      */
     abstract protected function getObjectForTrait($traitName, array $arguments = array(), $traitClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true);
     /**
-     * @param string|null $classOrInterface
+     * @param null|string $classOrInterface
      *
-     * @return \Prophecy\Prophecy\ObjectProphecy
-     *
-     * @throws \LogicException
+     * @throws Prophecy\Exception\Doubler\ClassNotFoundException
+     * @throws Prophecy\Exception\Doubler\DoubleException
+     * @throws Prophecy\Exception\Doubler\InterfaceNotFoundException
      */
     abstract protected function prophesize($classOrInterface = null);
     /**
-     * Adds a value to the assertion counter.
-     *
-     * @param int $count
-     */
-    abstract public function addToAssertionCount($count);
-    /**
-     * Returns the number of assertions performed by this test.
-     *
-     * @return int
-     */
-    abstract public function getNumAssertions();
-    /**
-     * @return bool
-     */
-    abstract public function usesDataProvider();
-    /**
-     * @return string
-     */
-    abstract public function dataDescription();
-    /**
-     * @return int|string
-     */
-    abstract public function dataName();
-    abstract public function registerComparator(\SebastianBergmann\Comparator\Comparator $comparator);
-    /**
-     * Gets the data set description of a TestCase.
-     *
-     * @param bool $includeData
-     *
-     * @return string
-     */
-    abstract public function getDataSetAsString($includeData = true);
-    /**
      * Gets the data set of a TestCase.
-     *
-     * @return array
      */
     abstract protected function getProvidedData();
     /**
      * Creates a default TestResult object.
-     *
-     * @return TestResult
      */
     abstract protected function createResult();
-    abstract protected function handleDependencies();
     /**
      * This method is called when a test method did not execute successfully.
-     *
-     * @param Throwable $t
      *
      * @throws Throwable
      */
