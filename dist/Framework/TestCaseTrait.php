@@ -10,69 +10,69 @@ trait TestCaseTrait
      *
      * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    abstract public function toString();
-    abstract public function count();
-    abstract public function getGroups();
-    abstract public function setGroups(array $groups);
-    abstract public function getAnnotations();
+    abstract public function toString() : string;
+    abstract public function count() : int;
+    abstract public function getGroups() : array;
+    abstract public function setGroups(array $groups) : void;
+    abstract public function getAnnotations() : array;
     /**
      * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    abstract public function getName(bool $withDataSet = true);
+    abstract public function getName(bool $withDataSet = true) : ?string;
     /**
      * Returns the size of the test.
      *
      * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    abstract public function getSize();
+    abstract public function getSize() : int;
     /**
      * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    abstract public function hasSize();
+    abstract public function hasSize() : bool;
     /**
      * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    abstract public function isSmall();
+    abstract public function isSmall() : bool;
     /**
      * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    abstract public function isMedium();
+    abstract public function isMedium() : bool;
     /**
      * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    abstract public function isLarge();
-    abstract public function getActualOutput();
-    abstract public function hasOutput();
-    abstract public function doesNotPerformAssertions();
-    abstract public function expectOutputRegex(string $expectedRegex);
-    abstract public function expectOutputString(string $expectedString);
-    abstract public function hasExpectationOnOutput();
-    abstract public function getExpectedException();
+    abstract public function isLarge() : bool;
+    abstract public function getActualOutput() : string;
+    abstract public function hasOutput() : bool;
+    abstract public function doesNotPerformAssertions() : bool;
+    abstract public function expectOutputRegex(string $expectedRegex) : void;
+    abstract public function expectOutputString(string $expectedString) : void;
+    abstract public function hasExpectationOnOutput() : bool;
+    abstract public function getExpectedException() : ?string;
     /**
      * @return null|int|string
      */
     abstract public function getExpectedExceptionCode();
-    abstract public function getExpectedExceptionMessage();
-    abstract public function getExpectedExceptionMessageRegExp();
-    abstract public function expectException(string $exception);
+    abstract public function getExpectedExceptionMessage() : string;
+    abstract public function getExpectedExceptionMessageRegExp() : string;
+    abstract public function expectException(string $exception) : void;
     /**
      * @param int|string $code
      */
-    abstract public function expectExceptionCode($code);
-    abstract public function expectExceptionMessage(string $message);
-    abstract public function expectExceptionMessageRegExp(string $messageRegExp);
+    abstract public function expectExceptionCode($code) : void;
+    abstract public function expectExceptionMessage(string $message) : void;
+    abstract public function expectExceptionMessageRegExp(string $messageRegExp) : void;
     /**
      * Sets up an expectation for an exception to be raised by the code under test.
      * Information for expected exception class, expected exception message, and
      * expected exception code are retrieved from a given Exception object.
      */
-    abstract public function expectExceptionObject(\Exception $exception);
-    abstract public function setRegisterMockObjectsFromTestArgumentsRecursively(bool $flag);
-    abstract public function setUseErrorHandler(bool $useErrorHandler);
-    abstract public function getStatus();
-    abstract public function markAsRisky();
-    abstract public function getStatusMessage();
-    abstract public function hasFailed();
+    abstract public function expectExceptionObject(\Exception $exception) : void;
+    abstract public function setRegisterMockObjectsFromTestArgumentsRecursively(bool $flag) : void;
+    abstract public function setUseErrorHandler(bool $useErrorHandler) : void;
+    abstract public function getStatus() : int;
+    abstract public function markAsRisky() : void;
+    abstract public function getStatusMessage() : string;
+    abstract public function hasFailed() : bool;
     /**
      * Runs the test case and collects the results in a TestResult object.
      * If no TestResult object is passed a new one will be created.
@@ -86,23 +86,23 @@ trait TestCaseTrait
      * @throws SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException
      * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    abstract public function run(\PHPUnit\Framework\TestResult $result = null);
-    abstract public function runBare();
-    abstract public function setName(string $name);
+    abstract public function run(?\PHPUnit\Framework\TestResult $result = null) : \PHPUnit\Framework\TestResult;
+    abstract public function runBare() : void;
+    abstract public function setName(string $name) : void;
     /**
      * @param string[] $dependencies
      */
-    abstract public function setDependencies(array $dependencies);
-    abstract public function hasDependencies();
-    abstract public function setDependencyInput(array $dependencyInput);
-    abstract public function setBeStrictAboutChangesToGlobalState(bool $beStrictAboutChangesToGlobalState);
-    abstract public function setBackupGlobals(bool $backupGlobals);
-    abstract public function setBackupStaticAttributes(bool $backupStaticAttributes);
-    abstract public function setRunTestInSeparateProcess(bool $runTestInSeparateProcess);
-    abstract public function setRunClassInSeparateProcess(bool $runClassInSeparateProcess);
-    abstract public function setPreserveGlobalState(bool $preserveGlobalState);
-    abstract public function setInIsolation(bool $inIsolation);
-    abstract public function isInIsolation();
+    abstract public function setDependencies(array $dependencies) : void;
+    abstract public function hasDependencies() : bool;
+    abstract public function setDependencyInput(array $dependencyInput) : void;
+    abstract public function setBeStrictAboutChangesToGlobalState(?bool $beStrictAboutChangesToGlobalState) : void;
+    abstract public function setBackupGlobals(?bool $backupGlobals) : void;
+    abstract public function setBackupStaticAttributes(?bool $backupStaticAttributes) : void;
+    abstract public function setRunTestInSeparateProcess(bool $runTestInSeparateProcess) : void;
+    abstract public function setRunClassInSeparateProcess(bool $runClassInSeparateProcess) : void;
+    abstract public function setPreserveGlobalState(bool $preserveGlobalState) : void;
+    abstract public function setInIsolation(bool $inIsolation) : void;
+    abstract public function isInIsolation() : bool;
     /**
      * @return mixed
      */
@@ -110,30 +110,30 @@ trait TestCaseTrait
     /**
      * @param mixed $result
      */
-    abstract public function setResult($result);
-    abstract public function setOutputCallback(callable $callback);
-    abstract public function getTestResultObject();
-    abstract public function setTestResultObject(\PHPUnit\Framework\TestResult $result);
-    abstract public function registerMockObject(\PHPUnit\Framework\MockObject\MockObject $mockObject);
+    abstract public function setResult($result) : void;
+    abstract public function setOutputCallback(callable $callback) : void;
+    abstract public function getTestResultObject() : ?\PHPUnit\Framework\TestResult;
+    abstract public function setTestResultObject(\PHPUnit\Framework\TestResult $result) : void;
+    abstract public function registerMockObject(\PHPUnit\Framework\MockObject\MockObject $mockObject) : void;
     /**
      * Returns a builder object to create mock objects using a fluent interface.
      *
      * @param string|string[] $className
      */
-    abstract public function getMockBuilder($className);
-    abstract public function addToAssertionCount(int $count);
+    abstract public function getMockBuilder($className) : \PHPUnit\Framework\MockObject\MockBuilder;
+    abstract public function addToAssertionCount(int $count) : void;
     /**
      * Returns the number of assertions performed by this test.
      */
-    abstract public function getNumAssertions();
-    abstract public function usesDataProvider();
-    abstract public function dataDescription();
+    abstract public function getNumAssertions() : int;
+    abstract public function usesDataProvider() : bool;
+    abstract public function dataDescription() : string;
     /**
      * @return int|string
      */
     abstract public function dataName();
-    abstract public function registerComparator(\SebastianBergmann\Comparator\Comparator $comparator);
-    abstract public function getDataSetAsString(bool $includeData = true);
+    abstract public function registerComparator(\SebastianBergmann\Comparator\Comparator $comparator) : void;
+    abstract public function getDataSetAsString(bool $includeData = true) : string;
     /**
      * Override to run the test and assert its state.
      *
@@ -155,14 +155,14 @@ trait TestCaseTrait
      *
      * @throws Exception
      */
-    abstract protected function iniSet(string $varName, $newValue);
+    abstract protected function iniSet(string $varName, $newValue) : void;
     /**
      * This method is a wrapper for the setlocale() function that automatically
      * resets the locale to its original value after the test is run.
      *
      * @throws Exception
      */
-    abstract protected function setLocale(... $args);
+    abstract protected function setLocale(... $args) : void;
     /**
      * Returns a test double for the specified class.
      *
@@ -172,7 +172,7 @@ trait TestCaseTrait
      * @throws ReflectionException
      * @throws \InvalidArgumentException
      */
-    abstract protected function createMock($originalClassName);
+    abstract protected function createMock($originalClassName) : \PHPUnit\Framework\MockObject\MockObject;
     /**
      * Returns a configured test double for the specified class.
      *
@@ -183,7 +183,7 @@ trait TestCaseTrait
      * @throws ReflectionException
      * @throws \InvalidArgumentException
      */
-    abstract protected function createConfiguredMock($originalClassName, array $configuration);
+    abstract protected function createConfiguredMock($originalClassName, array $configuration) : \PHPUnit\Framework\MockObject\MockObject;
     /**
      * Returns a partial test double for the specified class.
      *
@@ -194,7 +194,7 @@ trait TestCaseTrait
      * @throws ReflectionException
      * @throws \InvalidArgumentException
      */
-    abstract protected function createPartialMock($originalClassName, array $methods);
+    abstract protected function createPartialMock($originalClassName, array $methods) : \PHPUnit\Framework\MockObject\MockObject;
     /**
      * Returns a test proxy for the specified class.
      *
@@ -202,7 +202,7 @@ trait TestCaseTrait
      * @throws ReflectionException
      * @throws \InvalidArgumentException
      */
-    abstract protected function createTestProxy(string $originalClassName, array $constructorArguments = array());
+    abstract protected function createTestProxy(string $originalClassName, array $constructorArguments = []) : \PHPUnit\Framework\MockObject\MockObject;
     /**
      * Mocks the specified class and returns the name of the mocked class.
      *
@@ -219,7 +219,7 @@ trait TestCaseTrait
      * @throws ReflectionException
      * @throws \InvalidArgumentException
      */
-    abstract protected function getMockClass($originalClassName, $methods = array(), array $arguments = array(), $mockClassName = '', $callOriginalConstructor = false, $callOriginalClone = true, $callAutoload = true, $cloneArguments = false);
+    abstract protected function getMockClass($originalClassName, $methods = [], array $arguments = [], $mockClassName = '', $callOriginalConstructor = false, $callOriginalClone = true, $callAutoload = true, $cloneArguments = false) : string;
     /**
      * Returns a mock object for the specified abstract class with all abstract
      * methods of the class mocked. Concrete methods are not mocked by default.
@@ -238,7 +238,7 @@ trait TestCaseTrait
      * @throws ReflectionException
      * @throws \InvalidArgumentException
      */
-    abstract protected function getMockForAbstractClass($originalClassName, array $arguments = array(), $mockClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true, $mockedMethods = array(), $cloneArguments = false);
+    abstract protected function getMockForAbstractClass($originalClassName, array $arguments = [], $mockClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true, $mockedMethods = [], $cloneArguments = false) : \PHPUnit\Framework\MockObject\MockObject;
     /**
      * Returns a mock object based on the given WSDL file.
      *
@@ -254,7 +254,7 @@ trait TestCaseTrait
      * @throws ReflectionException
      * @throws \InvalidArgumentException
      */
-    abstract protected function getMockFromWsdl($wsdlFile, $originalClassName = '', $mockClassName = '', array $methods = array(), $callOriginalConstructor = true, array $options = array());
+    abstract protected function getMockFromWsdl($wsdlFile, $originalClassName = '', $mockClassName = '', array $methods = [], $callOriginalConstructor = true, array $options = []) : \PHPUnit\Framework\MockObject\MockObject;
     /**
      * Returns a mock object for the specified trait with all abstract methods
      * of the trait mocked. Concrete methods to mock can be specified with the
@@ -273,7 +273,7 @@ trait TestCaseTrait
      * @throws ReflectionException
      * @throws \InvalidArgumentException
      */
-    abstract protected function getMockForTrait($traitName, array $arguments = array(), $mockClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true, $mockedMethods = array(), $cloneArguments = false);
+    abstract protected function getMockForTrait($traitName, array $arguments = [], $mockClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true, $mockedMethods = [], $cloneArguments = false) : \PHPUnit\Framework\MockObject\MockObject;
     /**
      * Returns an object for the specified trait.
      *
@@ -290,7 +290,7 @@ trait TestCaseTrait
      *
      * @return object
      */
-    abstract protected function getObjectForTrait($traitName, array $arguments = array(), $traitClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true);
+    abstract protected function getObjectForTrait($traitName, array $arguments = [], $traitClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true);
     /**
      * @param null|string $classOrInterface
      *
@@ -298,15 +298,15 @@ trait TestCaseTrait
      * @throws Prophecy\Exception\Doubler\DoubleException
      * @throws Prophecy\Exception\Doubler\InterfaceNotFoundException
      */
-    abstract protected function prophesize($classOrInterface = null);
+    abstract protected function prophesize($classOrInterface = null) : \Prophecy\Prophecy\ObjectProphecy;
     /**
      * Gets the data set of a TestCase.
      */
-    abstract protected function getProvidedData();
+    abstract protected function getProvidedData() : array;
     /**
      * Creates a default TestResult object.
      */
-    abstract protected function createResult();
+    abstract protected function createResult() : \PHPUnit\Framework\TestResult;
     /**
      * This method is called when a test method did not execute successfully.
      *

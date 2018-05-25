@@ -144,6 +144,11 @@ class Compiler
             $method->setParameter(ParameterGenerator::fromReflection($reflectionParameter));
         }
 
+        $origReturnType = $reflectionMethod->getReturnType();
+        if ($origReturnType) {
+            $method->setReturnType(($origReturnType->allowsNull() ? '?' : '') . $origReturnType);
+        }
+
         return $method;
     }
 

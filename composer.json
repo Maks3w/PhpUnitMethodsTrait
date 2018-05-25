@@ -8,12 +8,12 @@
     "license": "BSD-2-Clause",
     "homepage": "https://github.com/Maks3w/PhpUnitMethodsTrait",
     "require": {
-        "php": ">= 7.0"
+        "php": ">= 7.1"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.0",
         "phpunit/phpunit": "^7.0",
-        "zendframework/zend-code": "<3.1"
+        "zendframework/zend-code": "^3.1"
     },
     "autoload": {
         "psr-4": {
