@@ -146,7 +146,7 @@ class Compiler
 
         $origReturnType = $reflectionMethod->getReturnType();
         if ($origReturnType) {
-            $method->setReturnType(($origReturnType->allowsNull() ? '?' : '') . $origReturnType);
+            $method->setReturnType(($origReturnType->allowsNull() ? '?' : '') . $origReturnType->getName());
         }
 
         return $method;
