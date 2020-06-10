@@ -19,8 +19,8 @@ Example of use in a trait
 
 ```php
 
-use PHPUnit_Framework_Assert as Assert;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\TestCase;
 
 trait FooTrait {
   use \Maks3w\PhpUnitMethodsTrait\Framework\TestCaseTrait;
@@ -42,8 +42,8 @@ trait FooTrait {
 <dl>
   <dt>Q: Assertion methods are not recognized. Why?</dt>
   <dd>
-    A: Assertion methods like `assertTrue` are static methods present in `PHPUnit_Framework_Assert` just access them
-       using static method call `PHPUnit_Framework_Assert::assertTrue(...)`
+    A: Assertion methods like `assertTrue` are static methods present in `PHPUnit\Framework\Assert` just access them
+       using static method call `PHPUnit\Framework\Assert::assertTrue(...)`
   </dd>
 </dl>
 
