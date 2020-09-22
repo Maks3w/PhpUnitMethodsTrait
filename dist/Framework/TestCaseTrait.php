@@ -55,9 +55,7 @@ trait TestCaseTrait
      *
      * @throws CodeCoverageException
      * @throws UtilException
-     * @throws \SebastianBergmann\CodeCoverage\CoveredCodeNotExecutedException
      * @throws \SebastianBergmann\CodeCoverage\InvalidArgumentException
-     * @throws \SebastianBergmann\CodeCoverage\RuntimeException
      * @throws \SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
@@ -185,7 +183,7 @@ trait TestCaseTrait
      */
     abstract public function setRegisterMockObjectsFromTestArgumentsRecursively(bool $flag) : void;
     /**
-     * @throws \Throwable
+     * @throws Throwable
      *
      * @internal This method is not covered by the backward compatibility promise for
      * PHPUnit
@@ -197,7 +195,7 @@ trait TestCaseTrait
      */
     abstract public function setName(string $name) : void;
     /**
-     * @param string[] $dependencies
+     * @param list<ExecutionOrderDependency> $dependencies
      *
      * @internal This method is not covered by the backward compatibility promise for
      * PHPUnit
@@ -207,22 +205,7 @@ trait TestCaseTrait
      * @internal This method is not covered by the backward compatibility promise for
      * PHPUnit
      */
-    abstract public function getDependencies() : array;
-    /**
-     * @internal This method is not covered by the backward compatibility promise for
-     * PHPUnit
-     */
-    abstract public function hasDependencies() : bool;
-    /**
-     * @internal This method is not covered by the backward compatibility promise for
-     * PHPUnit
-     */
     abstract public function setDependencyInput(array $dependencyInput) : void;
-    /**
-     * @internal This method is not covered by the backward compatibility promise for
-     * PHPUnit
-     */
-    abstract public function getDependencyInput() : array;
     /**
      * @internal This method is not covered by the backward compatibility promise for
      * PHPUnit
@@ -311,11 +294,6 @@ trait TestCaseTrait
      */
     abstract public function usesDataProvider() : bool;
     /**
-     * @internal This method is not covered by the backward compatibility promise for
-     * PHPUnit
-     */
-    abstract public function dataDescription() : string;
-    /**
      * @return int|string
      *
      * @internal This method is not covered by the backward compatibility promise for
@@ -339,6 +317,23 @@ trait TestCaseTrait
      * PHPUnit
      */
     abstract public function addWarning(string $warning) : void;
+    abstract public function sortId() : string;
+    /**
+     * Returns the normalized test name as class::method.
+     *
+     * @return list<ExecutionOrderDependency>
+     */
+    abstract public function provides() : array;
+    /**
+     * Returns a list of normalized dependency names, class::method.
+     *
+     * This list can differ from the raw dependencies as the resolver has
+     * no need for the [!][shallow]clone prefix that is filtered out
+     * during normalization.
+     *
+     * @return list<ExecutionOrderDependency>
+     */
+    abstract public function requires() : array;
     /**
      * Override to run the test and assert its state.
      *
@@ -346,7 +341,7 @@ trait TestCaseTrait
      * @throws Exception
      * @throws ExpectationFailedException
      * @throws \SebastianBergmann\ObjectEnumerator\InvalidArgumentException
-     * @throws \Throwable
+     * @throws Throwable
      */
     abstract protected function runTest();
     /**
@@ -462,7 +457,7 @@ trait TestCaseTrait
     /**
      * This method is called when a test method did not execute successfully.
      *
-     * @throws \Throwable
+     * @throws Throwable
      */
     abstract protected function onNotSuccessfulTest(\Throwable $t) : void;
     abstract protected function recordDoubledType(string $originalClassName) : void;
