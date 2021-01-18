@@ -27,7 +27,7 @@ jobs:
           composer install --no-progress --prefer-dist --optimize-autoloader
       - name: Check if Trait is synced with current PHPUnit version
         run: |
-          php bin/compile.php
+          bin/compile.php
           git diff --quiet
       - name: Show difference between current Trait and generated one
         run: git diff
