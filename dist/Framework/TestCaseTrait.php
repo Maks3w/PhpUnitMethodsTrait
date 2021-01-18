@@ -53,11 +53,11 @@ trait TestCaseTrait
      * Runs the test case and collects the results in a TestResult object.
      * If no TestResult object is passed a new one will be created.
      *
-     * @throws CodeCoverageException
-     * @throws UtilException
      * @throws \SebastianBergmann\CodeCoverage\InvalidArgumentException
      * @throws \SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws CodeCoverageException
+     * @throws UtilException
      */
     abstract public function run(?\PHPUnit\Framework\TestResult $result = null) : \PHPUnit\Framework\TestResult;
     /**
@@ -86,11 +86,6 @@ trait TestCaseTrait
      * PHPUnit
      */
     abstract public function setGroups(array $groups) : void;
-    /**
-     * @internal This method is not covered by the backward compatibility promise for
-     * PHPUnit
-     */
-    abstract public function getAnnotations() : array;
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      *
@@ -337,10 +332,10 @@ trait TestCaseTrait
     /**
      * Override to run the test and assert its state.
      *
+     * @throws \SebastianBergmann\ObjectEnumerator\InvalidArgumentException
      * @throws AssertionFailedError
      * @throws Exception
      * @throws ExpectationFailedException
-     * @throws \SebastianBergmann\ObjectEnumerator\InvalidArgumentException
      * @throws Throwable
      */
     abstract protected function runTest();
@@ -433,10 +428,14 @@ trait TestCaseTrait
      * Returns a mock object for the specified trait with all abstract methods
      * of the trait mocked. Concrete methods to mock can be specified with the
      * `$mockedMethods` parameter.
+     *
+     * @psalm-param trait-string $traitName
      */
     abstract protected function getMockForTrait(string $traitName, array $arguments = [], string $mockClassName = '', bool $callOriginalConstructor = true, bool $callOriginalClone = true, bool $callAutoload = true, array $mockedMethods = [], bool $cloneArguments = false) : \PHPUnit\Framework\MockObject\MockObject;
     /**
      * Returns an object for the specified trait.
+     *
+     * @psalm-param trait-string $traitName
      */
     abstract protected function getObjectForTrait(string $traitName, array $arguments = [], string $traitClassName = '', bool $callOriginalConstructor = true, bool $callOriginalClone = true, bool $callAutoload = true) : object;
     /**
