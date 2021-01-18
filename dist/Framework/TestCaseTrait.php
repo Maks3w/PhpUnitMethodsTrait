@@ -4,7 +4,6 @@ namespace Maks3w\PhpUnitMethodsTrait\Framework;
 
 trait TestCaseTrait
 {
-
     /**
      * Returns a string representation of the test case.
      *
@@ -460,6 +459,5 @@ trait TestCaseTrait
      */
     abstract protected function onNotSuccessfulTest(\Throwable $t) : void;
     abstract protected function recordDoubledType(string $originalClassName) : void;
-
 }
 

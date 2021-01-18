@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Maks3w\PhpUnitMethodsTrait;
 
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\FileGenerator;
-use Zend\Code\Generator\MethodGenerator;
-use Zend\Code\Generator\ParameterGenerator;
-use Zend\Code\Generator\TraitGenerator;
-use Zend\Code\Reflection\ClassReflection;
-use Zend\Code\Reflection\MethodReflection;
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\FileGenerator;
+use Laminas\Code\Generator\MethodGenerator;
+use Laminas\Code\Generator\ParameterGenerator;
+use Laminas\Code\Generator\TraitGenerator;
+use Laminas\Code\Reflection\ClassReflection;
+use Laminas\Code\Reflection\MethodReflection;
 
 /**
  * class with useful methods for placeholders checks.

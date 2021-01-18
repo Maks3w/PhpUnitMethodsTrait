@@ -12,7 +12,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.0",
-        "laminas/laminas-code": "^3.1",
+        "laminas/laminas-code": "^4.0",
         "phpunit/phpunit": "^9.5"
     },
     "autoload": {
