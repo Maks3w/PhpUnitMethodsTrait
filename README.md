@@ -2,7 +2,7 @@
 
 Provide a PHP Trait with methods present in PHPUnit Test Framework and expected to be implemented by TestCase.
 
-This is useful when traits are used for test reuse and it's necessary to access to PHPUnit_Framework_TestCase
+This is useful when traits are used for test reuse, and it's necessary to access to PHPUnit\Framework\TestCase
 methods from the trait.
 
 ## Installing via Composer
