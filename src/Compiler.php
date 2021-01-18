@@ -4,45 +4,32 @@ declare(strict_types=1);
 
 namespace Maks3w\PhpUnitMethodsTrait;
 
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\FileGenerator;
-use Zend\Code\Generator\MethodGenerator;
-use Zend\Code\Generator\ParameterGenerator;
-use Zend\Code\Generator\TraitGenerator;
-use Zend\Code\Reflection\ClassReflection;
-use Zend\Code\Reflection\MethodReflection;
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\FileGenerator;
+use Laminas\Code\Generator\MethodGenerator;
+use Laminas\Code\Generator\ParameterGenerator;
+use Laminas\Code\Generator\TraitGenerator;
+use Laminas\Code\Reflection\ClassReflection;
+use Laminas\Code\Reflection\MethodReflection;
 
 /**
  * class with useful methods for placeholders checks.
  */
 class Compiler
 {
-    /**
-     * @var string
-     */
-    private $inputClass;
-
-    /**
-     * @var TraitGenerator
-     */
-    private $basicTrait;
+    private string $inputClass;
+    private TraitGenerator $basicTrait;
 
     /**
      * @var string[]
      */
-    private $blackListMethodNames;
+    private array $blackListMethodNames;
+    private string $traitNamespace;
 
     /**
-     * @var string Trait namespace
-     */
-    private $traitNamespace;
-
-    /**
-     * @param string $inputClass
-     * @param string $traitNamespace Trait namespace
      * @param string[] $blackListMethodNames List of methods to exclude from the result
      */
-    public function __construct($inputClass, $traitNamespace, array $blackListMethodNames = [])
+    public function __construct(string $inputClass, string $traitNamespace, array $blackListMethodNames = [])
     {
         $this->inputClass = $inputClass;
         $this->traitNamespace = $traitNamespace;
@@ -63,12 +50,7 @@ class Compiler
         return $file->generate();
     }
 
-    /**
-     * @param string $class
-     *
-     * @return TraitGenerator
-     */
-    protected function process($class)
+    protected function process(string $class): TraitGenerator
     {
         $classReflection = new ClassReflection($class);
 
@@ -109,12 +91,7 @@ class Compiler
         return $traitGenerator;
     }
 
-    /**
-     * @param  MethodReflection $reflectionMethod
-     *
-     * @return MethodGenerator
-     */
-    protected function methodGeneratorFromReflection(MethodReflection $reflectionMethod)
+    protected function methodGeneratorFromReflection(MethodReflection $reflectionMethod): MethodGenerator
     {
         $method = new MethodGenerator();
 
@@ -152,14 +129,7 @@ class Compiler
         return $method;
     }
 
-    /**
-     * Indicate if method name is present in the black list.
-     *
-     * @param string $methodName
-     *
-     * @return bool
-     */
-    protected function methodIsBlackListed($methodName)
+    protected function methodIsBlackListed(string $methodName): bool
     {
         return in_array($methodName, $this->blackListMethodNames, true);
     }
