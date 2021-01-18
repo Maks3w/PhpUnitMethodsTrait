@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Maks3w\PhpUnitMethodsTraitTest;
+namespace Maks3w\PhpUnitMethodsTrait;
 
 /**
  * Example of a reusable trait of test methods.
  */
 trait FooTrait
 {
-    use \Maks3w\PhpUnitMethodsTrait\Framework\TestCaseTrait;
+    use Framework\TestCaseTrait;
 
     public function testFoo()
     {

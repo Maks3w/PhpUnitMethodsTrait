@@ -23,10 +23,7 @@
     "autoload-dev": {
         "psr-4": {
             "Maks3w\\PhpUnitMethodsTrait\\": [
-                "dist/",
-                "src/"
-            ],
-            "Maks3w\\PhpUnitMethodsTraitTest\\": [
+                "src/",
                 "test/"
             ]
         }

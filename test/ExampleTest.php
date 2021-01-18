@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Maks3w\PhpUnitMethodsTraitTest;
+namespace Maks3w\PhpUnitMethodsTrait;
 
 /**
  * Verify use the trait does not produce execution issues.
